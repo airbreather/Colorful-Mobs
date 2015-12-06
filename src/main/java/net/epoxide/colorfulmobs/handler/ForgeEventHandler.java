@@ -24,7 +24,7 @@ public class ForgeEventHandler {
         if (event.entity instanceof EntityLivingBase && !ColorProperties.hasProperties((EntityLivingBase) event.entity)) {
             ColorProperties props = ColorProperties.setProperties((EntityLivingBase) event.entity);
             
-            if (ConfigurationHandler.spawnRandom && Math.random() < ConfigurationHandler.spawnRate && props.isValidTarget() && !props.isInitialized())
+            if (ConfigurationHandler.spawnRandom && Math.random() < ConfigurationHandler.spawnRate && props.isValidTarget())
                 props.setColorObject(new ColorObject(false));
         }
     }

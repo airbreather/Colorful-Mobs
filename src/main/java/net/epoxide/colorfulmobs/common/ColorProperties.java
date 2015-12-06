@@ -18,13 +18,11 @@ public class ColorProperties implements IExtendedEntityProperties {
     
     public EntityLivingBase entity;
     private ColorObject colorObj;
-    private boolean hasInitialized;
     
     public ColorProperties(EntityLivingBase living) {
         
         entity = living;
         colorObj = new ColorObject();
-        hasInitialized = true;
     }
     
     @Override
@@ -32,7 +30,6 @@ public class ColorProperties implements IExtendedEntityProperties {
         
         NBTTagCompound entityData = new NBTTagCompound();
         entityData.setTag("color", this.colorObj.getTagFromColor());
-        entityData.setBoolean("init", this.hasInitialized);
         compound.setTag(PROP_NAME, entityData);
     }
     
@@ -41,7 +38,6 @@ public class ColorProperties implements IExtendedEntityProperties {
         
         NBTTagCompound playerData = compound.getCompoundTag(PROP_NAME);
         this.colorObj = new ColorObject(playerData.getCompoundTag("color"));
-        this.hasInitialized = playerData.getBoolean("init");
     }
     
     @Override
@@ -123,17 +119,6 @@ public class ColorProperties implements IExtendedEntityProperties {
     public boolean isDyed () {
         
         return (this.colorObj.getRed() < 1f || this.colorObj.getGreen() < 1f || this.colorObj.getBlue() < 1f || this.colorObj.getAlpha() < 1f);
-    }
-    
-    /**
-     * Checks if the mob has been initialized. This is used to differentiate between
-     * pre-existing mobs, and new ones.
-     *
-     * @return boolean: True, if the mob has already been spawned into the world.
-     */
-    public boolean isInitialized () {
-        
-        return this.hasInitialized;
     }
     
     /**
